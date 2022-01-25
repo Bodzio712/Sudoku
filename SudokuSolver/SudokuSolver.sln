@@ -3,29 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1231
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SudokuSolver", "SudokuSolver\SudokuSolver.vcxproj", "{6D0C4BBF-AA08-49DE-BF72-17D0A18A4F7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolver", "SudokuSolver\SudokuSolver.csproj", "{2EB357BB-C434-4525-9025-32070B658687}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6D0C4BBF-AA08-49DE-BF72-17D0A18A4F7B}.Debug|x64.ActiveCfg = Debug|x64
-		{6D0C4BBF-AA08-49DE-BF72-17D0A18A4F7B}.Debug|x64.Build.0 = Debug|x64
-		{6D0C4BBF-AA08-49DE-BF72-17D0A18A4F7B}.Debug|x86.ActiveCfg = Debug|Win32
-		{6D0C4BBF-AA08-49DE-BF72-17D0A18A4F7B}.Debug|x86.Build.0 = Debug|Win32
-		{6D0C4BBF-AA08-49DE-BF72-17D0A18A4F7B}.Release|x64.ActiveCfg = Release|x64
-		{6D0C4BBF-AA08-49DE-BF72-17D0A18A4F7B}.Release|x64.Build.0 = Release|x64
-		{6D0C4BBF-AA08-49DE-BF72-17D0A18A4F7B}.Release|x86.ActiveCfg = Release|Win32
-		{6D0C4BBF-AA08-49DE-BF72-17D0A18A4F7B}.Release|x86.Build.0 = Release|Win32
+		{2EB357BB-C434-4525-9025-32070B658687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EB357BB-C434-4525-9025-32070B658687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EB357BB-C434-4525-9025-32070B658687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EB357BB-C434-4525-9025-32070B658687}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {55F9097E-767E-4A0F-A6DF-96B39F492B16}
+		SolutionGuid = {CCCB1AA7-FA90-4E87-A6B8-7988BFD381B8}
 	EndGlobalSection
 EndGlobal
