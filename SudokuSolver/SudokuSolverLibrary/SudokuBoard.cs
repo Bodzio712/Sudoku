@@ -24,25 +24,67 @@ namespace SudokuSolverLibrary
             {
                 for(byte y = 0; y < 9; y++)
                 {
-                    this.board[x / 3][y / 3].SetElement(board[y][x], Convert.ToByte(x % 3), Convert.ToByte(y % 3));
+                    this.board[x/3][y/3].SetElement(board[y][x], Convert.ToByte(x % 3), Convert.ToByte(y % 3));
                 }
             }
         }
 
-        public byte GetElement(byte x, byte y)
+        public void SetElement(byte? value, byte x, byte y)
+        {
+            GetPiece(x, y).SetElement(value, Convert.ToByte(x % 3), Convert.ToByte(y % 3));
+        }
+
+        public void SetElement(byte? value, byte n)
+        {
+            SetElement(value, Convert.ToByte(n % 9), Convert.ToByte(n / 9));
+        }
+
+        public byte[] FindNotPresentValues(byte x, byte y)
+        {
+            List<byte> elements = new List<byte>();
+
+            for (byte i = 1; i < 10; i++)
+            {
+                if (!IsPresent(i, x, y))
+                    elements.Add(i);
+            }
+
+            elements.Sort();
+            return elements.ToArray();
+        }
+
+        public byte[] FindNotPresentValues(byte n)
+        {
+            return FindNotPresentValues(Convert.ToByte(n % 9), Convert.ToByte(n / 9));
+        }
+
+        public bool IsPresent(byte value, byte x, byte y)
+        {
+            if ((!IsInHorizontalLine(value, y)) && (!IsInVerticalLine(value, x)) && !(GetPiece(Convert.ToByte(x), Convert.ToByte(y)).IsInPiece(value)))
+                return false;
+            else
+                return true;
+        }
+
+        public byte? GetElement(byte x, byte y)
         {
             if (x > 8 || y > 8)
                 throw new ArgumentException("X and Y coordinates must be in range 0 to 2");
 
-            return this.board[x / 3][y / 3].GetElement(Convert.ToByte(x % 3), Convert.ToByte(y % 3)).Value;
+            return GetPiece(x, y).GetElement(Convert.ToByte(x % 3), Convert.ToByte(y % 3));
         }
 
-        public byte GetElement(byte n)
+        public byte? GetElement(byte n)
         {
             if (n > 80)
                 throw new ArgumentException("N must be in range 0 to 80");
 
-            return this.board[n / 9 /3][n / 9 % 3].GetElement(Convert.ToByte(n / 9 % 3), Convert.ToByte(n % 3)).Value;
+            return GetPiece(Convert.ToByte(n % 9),Convert.ToByte(n / 9)).GetElement(Convert.ToByte(n % 3), Convert.ToByte(n / 9 % 3));
+        }
+
+        public SudokuBoardPiece GetPiece(byte x, byte y)
+        {
+            return this.board[x / 3][y / 3];
         }
 
         private byte[] GetHorizontalLineValues(byte line)
@@ -126,16 +168,22 @@ namespace SudokuSolverLibrary
 
     public class SudokuBoardPiece
     {
-        private Nullable<byte>[][] board;
+        private Nullable<byte>[][] board = new byte?[3][] { new byte?[3], new byte?[3], new byte?[3] };
 
         public SudokuBoardPiece()
         {
-            board = new byte?[3][] { new byte?[3], new byte?[3] , new byte?[3] };
+
         }
 
         public SudokuBoardPiece(byte?[][] board)
         {
-            this.board = board;
+            for (byte x = 0; x < 3; x++)
+            {
+                for (byte y = 0; y < 3; y++)
+                {
+                    this.board[y][x] = board[x][y];
+                }
+            }
         }
 
         public void SetElement(byte? value, byte x, byte y)
@@ -146,7 +194,7 @@ namespace SudokuSolverLibrary
             if (x > 2 || y > 2)
                 throw new ArgumentException("X and Y coordinates must be in range 0 to 2");
 
-            this.board[y][x] = value;
+            this.board[x][y] = value;
         }
 
         public byte? GetElement(byte x, byte y)
@@ -154,7 +202,7 @@ namespace SudokuSolverLibrary
             if (x > 2 || y > 2)
                 throw new ArgumentException("X and Y coordinates must be in range 0 to 2");
 
-            return this.board[y][x];
+            return this.board[x][y];
         }
 
         public byte? GetElement(byte n)
@@ -162,7 +210,7 @@ namespace SudokuSolverLibrary
             if (n > 8)
                 throw new ArgumentException("N must be in range 0 to 8");
 
-            return this.board[n / 3][n % 3];
+            return GetElement(Convert.ToByte(n % 3), Convert.ToByte(n / 3));
         }
 
         public byte[] GetListOfUsedElements()
